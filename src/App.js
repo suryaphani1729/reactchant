@@ -5,24 +5,33 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import ProfilePage from './components/home/ProfilePage';
+import SignInComponent from './components/login/SignInComponent';
+import SignUpComponent from './components/login/SignUpComponent';
+import PasswordResetComponent from './components/login/PasswordResetComponent';
 import ChatComponent from './components/chant/ChantComponent';
 import './App.css';
 
 export default function App() {
+  const user = null;
   return (
+    user ? <ProfilePage /> :
     <div className="App">
       <header className="App-header">
       <Router>
       <div>
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/">ProfilePage</Link>
           </li>
           <li>
-            <Link to="/about">About</Link>
+            <Link to="/signin">SignIn</Link>
           </li>
           <li>
-            <Link to="/dashboard">Dashboard</Link>
+            <Link to="/signup">SignUp</Link>
+          </li>
+          <li>
+            <Link to="/reset">Reset</Link>
           </li>
         </ul>
 
@@ -37,13 +46,16 @@ export default function App() {
         */}
         <Switch>
           <Route exact path="/">
-            <ChatComponent />
+            <ProfilePage />
           </Route>
-          <Route path="/about">
-            <ChatComponent />
+          <Route path="/signin">
+            <SignInComponent />
           </Route>
-          <Route path="/dashboard">
-            <ChatComponent />
+          <Route path="/signup">
+            <SignUpComponent />
+          </Route>
+          <Route path="/reset">
+            <PasswordResetComponent />
           </Route>
         </Switch>
       </div>
