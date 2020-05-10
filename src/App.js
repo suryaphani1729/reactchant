@@ -10,10 +10,12 @@ import SignInComponent from './components/login/SignInComponent';
 import SignUpComponent from './components/login/SignUpComponent';
 import PasswordResetComponent from './components/login/PasswordResetComponent';
 import ChatComponent from './components/chant/ChantComponent';
+import {auth} from './firebase';
 import './App.css';
+import UserProvider from './components/UserProvider';
 
-export default function App() {
-  const user = null;
+export const App = function() {
+    const user = null;
   return (
     user ? <ProfilePage /> :
     <div className="App">
@@ -64,4 +66,14 @@ export default function App() {
       </header>
     </div>
   );
+      
+};
+
+function MainApp() {
+  return (
+    <UserProvider>
+      <App />
+    </UserProvider>
+  );
 }
+export default MainApp;
