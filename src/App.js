@@ -8,10 +8,8 @@ import PasswordResetComponent from "./components/login/PasswordResetComponent";
 import "./App.css";
 import UserProvider from "./components/UserProvider";
 export const App = function () {
-  const user = useContext(UserContext);
-  return user != null ? (
-    <ProfilePage />
-  ) : (
+  // const user = useContext(UserContext);
+  return (
     <div className="App">
             
       <header className="App-header">
@@ -52,7 +50,7 @@ export const App = function () {
                           
               </Route>
                         
-              <Route path="/signin">
+              <Route exact path="/signin">
                             
                 <SignInComponent />
                           

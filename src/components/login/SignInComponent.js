@@ -14,7 +14,7 @@ const SignInComponent = () => {
       console.error("Error signing in with password and email", error);
     });
   };
-  const user = useContext(UserContext);
+  const { user } = useContext(UserContext);
   if (user != null) return <Redirect to="/" />;
   const onChangeHandler = (event) => {
     const { name, value } = event.currentTarget;

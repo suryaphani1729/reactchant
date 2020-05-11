@@ -4,9 +4,10 @@ import { auth, saveUserTodayCount, getUserCounts } from "../../firebase";
 import { Redirect } from "react-router-dom";
 const ProfilePage = () => {
   const [todayVal, setTodayVal] = useState("");
-  const user = useContext(UserContext);
+  const { user, data } = useContext(UserContext);
   console.log("Know user", user);
   if (user === null || user === undefined) return <Redirect to="/signin" />;
+
   const { photoURL, displayName, email } = user;
   const onChangeHandler = (event) => {
     const { name, value } = event.currentTarget;
@@ -21,6 +22,20 @@ const ProfilePage = () => {
   const getData = async () => {
     const getData = await getUserCounts(user.uid);
     console.log("data...", getData);
+  };
+  const getDateFormat = (fullDate) => {
+    const yeardata = fullDate.substring(0, 4);
+    const monthdata = fullDate.substring(4, 6);
+    const dat = fullDate.substring(6, 8);
+    return dat + "-" + monthdata + "-" + yeardata;
+  };
+  const totalCount = () => {
+    let total = 0;
+
+    for (let i = 0; i < data.length; i++) {
+      total += parseInt(data[i].data.dayKey);
+    }
+    return total * 108 + "(" + total + ")";
   };
   return (
     <div className="mx-auto w-11/12 md:w-2/4 py-8 px-4 md:px-8">
@@ -83,7 +98,26 @@ const ProfilePage = () => {
       >
         Get Counts
       </button>
-           
+      <h3>Total: {totalCount()}</h3>
+      <table>
+        <tbody>
+          {data.length > 0 ? (
+            data.map((item) => {
+              return (
+                <tr key={item.id}>
+                  <td>{getDateFormat(item.id)}</td>
+                  <td>{item.data.dayKey}</td>
+                </tr>
+              );
+            })
+          ) : (
+            <tr>
+              <td colspan="2">No data found</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+       
     </div>
   );
 };

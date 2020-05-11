@@ -7,7 +7,7 @@ const SignUpComponent = () => {
   const [password, setPassword] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [error, setError] = useState(null);
-  const user = useContext(UserContext);
+  const { user } = useContext(UserContext);
   if (user != null) return <Redirect to="/" />;
 
   const createUserWithEmailAndPasswordHandler = async (

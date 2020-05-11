@@ -70,7 +70,7 @@ export const getUserCounts = async (uid) => {
     const data = collection.docs.map((doc) => {
       return { data: doc.data(), id: doc.id };
     });
-    return { uid, data };
+    return data;
   } catch (error) {
     console.error("Error fetching user", error);
   }
