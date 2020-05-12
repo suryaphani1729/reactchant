@@ -1,0 +1,37 @@
+.inputBlock {
+  width: 50%;
+  background: white;
+  height: auto;
+  position: relative;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+.text-center {
+  text-align: center;
+}
+.headerColor {
+  color: #152c2f;
+}
+button {
+  padding: 0.8em;
+  font-size: 0.8em;
+  background: #00bcd4;
+  font-weight: bold;
+  border: 0;
+  border-radius: 4px;
+  color: #152c2f;
+}
+input {
+  padding: 8px;
+  font-size: 0.8em;
+  border-radius: 5px;
+  border: 1px solid #65aeb7;
+}
+@media screen and (max-width: 480px) {
+  .inputBlock {
+    width: 90%;
+  }
+}

@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import "./styles.css";
 import { Link, Redirect } from "react-router-dom";
 import { UserContext } from "../UserProvider";
 import { auth, generateUserDocument } from "../../firebase";
@@ -42,8 +43,8 @@ const SignUpComponent = () => {
     }
   };
   return (
-    <div className="mt-8">
-            <h1 className="text-3xl mb-2 text-center font-bold">Sign Up</h1>
+    <div className="inputBlock text-center">
+            <h3 className="text-center headerColor">Sign Up</h3>
             
       <div className="border border-blue-400 mx-auto w-11/12 md:w-2/4 rounded py-8 px-4 md:px-8">
                 
@@ -56,9 +57,9 @@ const SignUpComponent = () => {
         <form className="">
                     
           <label htmlFor="displayName" className="block">
-                        Display Name:          
+            Display Name:
           </label>
-                    
+            
           <input
             type="text"
             className="my-1 p-1 w-full "
@@ -68,11 +69,12 @@ const SignUpComponent = () => {
             id="displayName"
             onChange={(event) => onChangeHandler(event)}
           />
-                    
+          <br />
+          <br />
           <label htmlFor="userEmail" className="block">
-                        Email:          
+            Email:
           </label>
-                    
+            
           <input
             type="email"
             className="my-1 p-1 w-full"
@@ -82,11 +84,11 @@ const SignUpComponent = () => {
             id="userEmail"
             onChange={(event) => onChangeHandler(event)}
           />
-                    
+          <br />
+          <br />
           <label htmlFor="userPassword" className="block">
-                        Password:          
+            Password:
           </label>
-                    
           <input
             type="password"
             className="mt-1 mb-3 p-1 w-full"
@@ -96,6 +98,8 @@ const SignUpComponent = () => {
             id="userPassword"
             onChange={(event) => onChangeHandler(event)}
           />
+          <br />
+          <br />
                     
           <button
             className="bg-green-400 hover:bg-green-500 w-full py-2 text-white"
@@ -114,8 +118,8 @@ const SignUpComponent = () => {
                 
         <p className="text-center my-3">
                     Already have an account?{" "}          
-          <Link to="/signin" className="text-blue-500 hover:text-blue-600">
-                        Sign in here          
+          <Link to="/signin" className="headerColor">
+            Sign in here
           </Link>
                   
         </p>

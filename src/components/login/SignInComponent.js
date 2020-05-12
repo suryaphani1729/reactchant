@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import "./styles.css";
 import { Link, Redirect } from "react-router-dom";
 import { UserContext } from "../UserProvider";
 import { signInWithGoogle } from "../../firebase";
@@ -25,9 +26,9 @@ const SignInComponent = () => {
     }
   };
   return (
-    <div className="mt-8">
-          <h1 className="text-3xl mb-2 text-center font-bold">Sign In</h1>    
-      <div className="border border-blue-400 mx-auto w-11/12 md:w-2/4 rounded py-8 px-4 md:px-8">
+    <div className="inputBlock text-center">
+          <h3 className="text-center headerColor">Sign In</h3>    
+      <div className="">
               
         {error !== null && (
           <div className="py-4 bg-red-600 w-full text-white text-center mb-3">
@@ -38,7 +39,7 @@ const SignInComponent = () => {
         <form className="">
                   
           <label htmlFor="userEmail" className="block">
-                      Email:        
+            Email:
           </label>
                   
           <input
@@ -50,11 +51,13 @@ const SignInComponent = () => {
             id="userEmail"
             onChange={(event) => onChangeHandler(event)}
           />
-                  
+                
+          <br />
+          <br />
+            
           <label htmlFor="userPassword" className="block">
-                      Password:        
+            Password:
           </label>
-                  
           <input
             type="password"
             className="mt-1 mb-3 p-1 w-full"
@@ -64,14 +67,17 @@ const SignInComponent = () => {
             id="userPassword"
             onChange={(event) => onChangeHandler(event)}
           />
-                  
+              
+          <br />
+          <br />
+              
           <button
-            className="bg-green-400 hover:bg-green-500 w-full py-2 text-white"
+            className=""
             onClick={(event) => {
               signInWithEmailAndPasswordHandler(event, email, password);
             }}
           >
-                      Sign in        
+            Sign in
           </button>
                 
         </form>
@@ -82,19 +88,17 @@ const SignInComponent = () => {
             signInWithGoogle();
           }}
         >
-                  Sign in with Google      
+          Sign in with Google
         </button>
               
         <p className="text-center my-3">
                   Don't have an account?{" "}        
-          <Link to="signup" className="text-blue-500 hover:text-blue-600">
-                      Sign up here        
+          <Link to="signup" className="headerColor">
+            Sign up here
           </Link>
-          {" "}        
           <br />
-          {" "}        
-          <Link to="reset" className="text-blue-500 hover:text-blue-600">
-                      Forgot Password?        
+          <Link to="reset" className="headerColor">
+            Forgot Password?
           </Link>
                 
         </p>

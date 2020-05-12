@@ -8,73 +8,79 @@ import PasswordResetComponent from "./components/login/PasswordResetComponent";
 import "./App.css";
 import UserProvider from "./components/UserProvider";
 export const App = function () {
-  // const user = useContext(UserContext);
+  const user = useContext(UserContext);
+  if (user === null || user === undefined) {
+    return <SignInComponent />;
+  }
   return (
     <div className="App">
-            
-      <header className="App-header">
+                   
+      <Router>
               
-        <Router>
-                
+        <div>
+             
           <div>
-                    
-            <ul>
-                        
-              <li>
-                            <Link to="/">ProfilePage</Link>          
-              </li>
-                        
-              <li>
-                            <Link to="/signin">SignIn</Link>          
-              </li>
-                        
-              <li>
-                            <Link to="/signup">SignUp</Link>          
-              </li>
-                        
-              <li>
-                            <Link to="/reset">Reset</Link>          
-              </li>
-                      
-            </ul>
-                    
-            <hr />
-                    
-            {/*          A <Switch> looks through all its children <Route>          elements and renders the first one whose path          matches the current URL. Use a <Switch> any time          you have multiple routes, but you want only one          of them to render at a time        */}
-                    
-            <Switch>
-                        
-              <Route exact path="/">
-                            
-                <ProfilePage />
-                          
-              </Route>
-                        
-              <Route exact path="/signin">
-                            
-                <SignInComponent />
-                          
-              </Route>
-                        
-              <Route path="/signup">
-                            
-                <SignUpComponent />
-                          
-              </Route>
-                        
-              <Route path="/reset">
-                            
-                <PasswordResetComponent />
-                          
-              </Route>
-                      
-            </Switch>
-                  
+               
+            <span>
+              <Link to="/" className="headerColor">
+                ProfilePage
+              </Link>
+            </span>
+            &nbsp;&nbsp;
+            <span>
+              <Link to="/signin" className="headerColor">
+                SignIn
+              </Link>
+            </span>
+            &nbsp;&nbsp;
+            <span>
+              <Link to="/signup" className="headerColor">
+                SignUp
+              </Link>
+            </span>
+            &nbsp;&nbsp;
+            <span>
+              <Link to="/reset" className="headerColor">
+                Reset
+              </Link>
+            </span>
           </div>
-              
-        </Router>
-              
-      </header>
+                  
+          <hr />
+                  
+          {/*          A <Switch> looks through all its children <Route>          elements and renders the first one whose path          matches the current URL. Use a <Switch> any time          you have multiple routes, but you want only one          of them to render at a time        */}
+                  
+          <Switch>
+                      
+            <Route exact path="/">
+                          
+              <ProfilePage />
+                        
+            </Route>
+                      
+            <Route exact path="/signin">
+                          
+              <SignInComponent />
+                        
+            </Route>
+                      
+            <Route path="/signup">
+                          
+              <SignUpComponent />
+                        
+            </Route>
+                      
+            <Route path="/reset">
+                          
+              <PasswordResetComponent />
+                        
+            </Route>
+                    
+          </Switch>
+                
+        </div>
+            
+      </Router>
           
     </div>
   );
