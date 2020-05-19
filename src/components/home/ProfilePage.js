@@ -2,7 +2,8 @@ import React, { useState, useContext } from "react";
 import { UserContext } from "../UserProvider";
 import { auth, saveUserTodayCount, getUserCounts } from "../../firebase";
 import { Redirect } from "react-router-dom";
-import { useStore } from "react-redux";
+import SelfReportComponent from "../reports/self/SelfReportComponent";
+
 const ProfilePage = () => {
   const getDateInStringFormat = (dateFormat) => {
     return (
@@ -36,10 +37,10 @@ const ProfilePage = () => {
     event.preventDefault();
     saveUserTodayCount(user, countDate, todayVal);
   };
-  const getData = async () => {
-    const getData = await getUserCounts(user.uid);
-    updateData(getData);
-  };
+  // const getData = async () => {
+  //   const getData = await getUserCounts(user.uid);
+  //   updateData(getData);
+  // };
   const getDateFormat = (fullDate) => {
     const yeardata = fullDate.substring(0, 4);
     const monthdata = fullDate.substring(4, 6);
@@ -59,6 +60,7 @@ const ProfilePage = () => {
       <div className="">
         <div className="">
           <h3 className="text-2xl font-semibold">{displayName}</h3>
+          <SelfReportComponent />
           <br />
           <br />
 
@@ -98,13 +100,6 @@ const ProfilePage = () => {
         Sign out
       </button>
       <br />
-      <button
-        onClick={() => {
-          getData();
-        }}
-      >
-        Refresh
-      </button>
       <h3>Total: {totalCount()}</h3>
       <table>
         <tbody>
@@ -119,7 +114,7 @@ const ProfilePage = () => {
             })
           ) : (
             <tr>
-              <td colspan="2">No data found</td>
+              <td colSpan="2">No data found</td>
             </tr>
           )}
         </tbody>

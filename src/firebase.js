@@ -79,7 +79,8 @@ export const saveUserTodayCount = async (user, countDate, todayCount) => {
   if (!user) return;
   const d = new Date(countDate);
   const year = d.getFullYear();
-  const month = d.getMonth() < 10 ? "0" + d.getMonth() : d.getMonth();
+  const month =
+    d.getMonth() + 1 < 10 ? "0" + (d.getMonth() + 1) : d.getMonth() + 1;
   const date = d.getDate();
   const dayKey = year + "" + month + "" + date;
   const userRef = firestore.doc(`users/${user.uid}/counts/${dayKey}`);
@@ -94,6 +95,25 @@ export const getUserCounts = async (uid) => {
   if (!uid) return null;
   try {
     const collection = await firestore.collection(`users/${uid}/counts`).get();
+    const data = collection.docs.map((doc) => {
+      return { data: doc.data(), id: doc.id };
+    });
+    return data;
+  } catch (error) {
+    console.error("Error fetching user", error);
+  }
+};
+
+export const getDataByMonthYear = async (uid, selectedMonth, selectedYear) => {
+  try {
+    const collection = await firestore
+      .collection(`users/${uid}/counts`)
+      .where(
+        firebase.firestore.FieldPath.documentId(),
+        ">=",
+        `${selectedYear}${selectedMonth}`
+      )
+      .get();
     const data = collection.docs.map((doc) => {
       return { data: doc.data(), id: doc.id };
     });
