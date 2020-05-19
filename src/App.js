@@ -1,17 +1,26 @@
 import React, { useContext } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect,
+} from "react-router-dom";
 import { UserContext } from "./components/UserProvider";
 import ProfilePage from "./components/home/ProfilePage";
 import SignInComponent from "./components/login/SignInComponent";
 import SignUpComponent from "./components/login/SignUpComponent";
 import PasswordResetComponent from "./components/login/PasswordResetComponent";
+import Loading from "./components/utils/loading";
+import MenuBasedOnLogin from "./components/menu";
+
 import "./App.css";
 import UserProvider from "./components/UserProvider";
+
 export const App = function () {
-  const user = useContext(UserContext);
-  if (user === null || user === undefined) {
-    return <SignInComponent />;
-  }
+  const data = useContext(UserContext);
+  console.log("loading", data.loading, data);
+  if (data.loading === true) return <Loading />;
   return (
     <div className="App">
                    
@@ -20,30 +29,7 @@ export const App = function () {
         <div>
              
           <div>
-               
-            <span>
-              <Link to="/" className="headerColor">
-                ProfilePage
-              </Link>
-            </span>
-            &nbsp;&nbsp;
-            <span>
-              <Link to="/signin" className="headerColor">
-                SignIn
-              </Link>
-            </span>
-            &nbsp;&nbsp;
-            <span>
-              <Link to="/signup" className="headerColor">
-                SignUp
-              </Link>
-            </span>
-            &nbsp;&nbsp;
-            <span>
-              <Link to="/reset" className="headerColor">
-                Reset
-              </Link>
-            </span>
+            {MenuBasedOnLogin(!(data.user === null || data.user === undefined))}
           </div>
                   
           <hr />
@@ -75,7 +61,11 @@ export const App = function () {
               <PasswordResetComponent />
                         
             </Route>
-                    
+            {data.user === null || data.user === undefined ? (
+              <Redirect to="/signin" />
+            ) : (
+              <Redirect to="/" />
+            )}
           </Switch>
                 
         </div>

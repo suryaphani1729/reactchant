@@ -10,6 +10,33 @@ const config = {
 };
 //firebase
 firebase.initializeApp(config);
+// for messaging
+const messaging = firebase.messaging();
+messaging.usePublicVapidKey(
+  "BNqXbuaTezYo4V2cfB6UG3ck03FKJzV-eHxZF_fAtsQiHNO_yVz1H6Cu5OTTPJWpUCPY82FSnUn1bxlYSK7A3Zc"
+);
+messaging.onMessage(function (payload) {
+  console.log(
+    "[firebase-messaging-sw.js] Received background message ",
+    payload
+  );
+  // Customize notification here
+  const notificationTitle = "Background Message Title";
+  const notificationOptions = {
+    body: "Background Message body.",
+    icon: "/firebase-logo.png",
+  };
+
+  navigator.serviceWorker.ready.then(function (registration) {
+    return registration.showNotification("Vibration Sample", {
+      body: "Buzz! Buzz!",
+      icon: "../images/touch/chrome-touch-icon-192x192.png",
+      vibrate: [200, 100, 200, 100, 200, 100, 200],
+      tag: "vibration-sample",
+    });
+  });
+});
+export default messaging;
 const databaseRef = firebase.database().ref();
 export const todosRef = databaseRef.child("todos");
 // firebase end
@@ -48,9 +75,9 @@ const getUserDocument = async (uid) => {
 };
 
 // save based on date
-export const saveUserTodayCount = async (user, todayCount) => {
+export const saveUserTodayCount = async (user, countDate, todayCount) => {
   if (!user) return;
-  const d = new Date();
+  const d = new Date(countDate);
   const year = d.getFullYear();
   const month = d.getMonth() < 10 ? "0" + d.getMonth() : d.getMonth();
   const date = d.getDate();
